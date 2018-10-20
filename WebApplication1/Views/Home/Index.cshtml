@@ -1,0 +1,125 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@model IEnumerable<WebApplication1.Models.Event>
+
+<link rel="stylesheet" href="~/Content/Site.css" />
+
+<h1>请选择评分项目 </h1>
+
+
+@{
+    if (Model.Count() == 0)
+    {
+    <p>没有权限</p>
+    }
+    else
+    {
+
+        //查找通用专业项目
+
+        var eventsAll = from a in Model
+                       where  a.Pro == "ME&AV"
+                       select a;
+        if (eventsAll.Count() != 0)
+        {
+            <h2>ME-AV专业</h2>
+            <hr class="prohr" />
+
+            foreach (var item in eventsAll)
+            {
+                <div class="myitem">
+                    @{string imgurl = string.Format(@"/img/{0}.png", item.Name);}
+                    <a href="@Url.Action("Index", "Scores", new { eventID = item.Id })">
+                        <img src=@imgurl />
+                    </a>
+                    <br />
+                    @Html.ActionLink(item.Name, "Index", "Scores", new { eventID = item.Id }, null)
+                </div>
+                                }
+                            }
+
+
+                      
+
+                        //查找机电专业项目
+                        var eventsME = from a in Model
+                                       where a.Pro == "ME" 
+                                       select a;
+                        if (eventsME.Count() != 0)
+                        {
+            <h2>ME专业</h2>
+            <hr class="prohr" />
+
+            foreach (var item in eventsME)
+            {
+                <div class="myitem">
+                    @{string imgurl = string.Format(@"/img/{0}.png", item.Name);}
+                    <a href="@Url.Action("Index", "Scores", new { eventID = item.Id })">
+                        <img src=@imgurl />
+                    </a>
+                    <br />
+                    @Html.ActionLink(item.Name, "Index", "Scores", new { eventID = item.Id }, null)
+                </div>
+                                }
+                            }
+
+
+                        }
+
+                        //查找电子专业项目
+                        var eventsAV = from a in Model
+                                       where a.Pro == "AV" 
+                                       select a;
+                        if (eventsAV.Count() != 0)
+                        {
+                            <h2>AV专业</h2>
+                            <hr class="prohr" />
+
+                            foreach (var item in eventsAV)
+                            {
+                                <div class="myitem">
+
+                                    @{string imgurl = string.Format(@"/img/{0}.png", item.Name);}
+                                    <a href="@Url.Action("Index", "Scores", new { eventID = item.Id })">
+                                        <img src=@imgurl />
+                                    </a>
+                                    <br />
+                                    @Html.ActionLink(item.Name, "Index", "Scores", new { eventID = item.Id }, null)
+                                </div>
+                                            }
+                                        }
+                    //查找决赛项目
+                    var eventsFIN = from a in Model
+                                    where a.Pro == "FIN"
+                                    select a;
+                    if (eventsFIN.Count() != 0)
+                    {
+                        <h2>团体决赛</h2>
+                        <hr class="prohr" />
+
+                        foreach (var item in eventsFIN)
+                        {
+                            <div class="myitem">
+                                @{string imgurl = string.Format(@"/img/{0}.png", item.Name);}
+                                <a href="@Url.Action("Index", "Scores", new { eventID = item.Id })">
+                                    <img src=@imgurl />
+                                </a>
+                                <br />
+                                @Html.ActionLink(item.Name, "Index", "Scores", new { eventID = item.Id }, null)
+                            </div>
+                                        }
+                                    }
+
+
+
+}
+
+<div class="clear"></div>
+
+
+
+
+

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebApplication1.Models.Judge>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("新建", "Create")
+</p>
+
+<p>
+    @Html.ActionLink("批量录入", "Multi")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Event.Name)
+           
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company.Name)
+
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Event.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Company.Name)
+        </td>
+        <td>
+            @Html.ActionLink("设置项目", "SetEvent", new { id=item.Id }) |
+          
+        </td>
+    </tr>
+}
+
+</table>

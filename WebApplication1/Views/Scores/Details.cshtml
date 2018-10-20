@@ -1,0 +1,82 @@
+﻿@model WebApplication1.Models.Score
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Score</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeConsume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeConsume)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimePenalty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimePenalty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JudgeTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JudgeTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifyTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifyTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Competitor.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Competitor.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Event.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Judge.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Judge.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="SettingItem">
+
+    <a href="@Url.Action("Index", "Events")">
+        <img src="~/img/event.png"/>
+    </a>
+    <br />
+    @Html.ActionLink("赛程项目设置", "Index", "Events")
+</div>
+<div class="SettingItem">
+    <a href="@Url.Action("Index", "Companies")">
+        <img src="~/img/company.png" />
+    </a>
+    <br />
+    @Html.ActionLink("分子公司数据设置", "Index", "Companies")
+</div>
+
+<div class="SettingItem">
+    <a href="@Url.Action("Index", "Competitors")">
+        <img src="~/img/team.png"/>
+    </a>
+    <br />
+    @Html.ActionLink("参赛选手设置", "Index", "Competitors")
+</div>
+<div class="SettingItem">
+    <a href="@Url.Action("Index", "Judges")">
+        <img src="~/img/Judge.png" />
+    </a>
+    <br />
+    @Html.ActionLink("裁判设置", "Index", "Judges")
+</div>
+<div class="clear"></div>

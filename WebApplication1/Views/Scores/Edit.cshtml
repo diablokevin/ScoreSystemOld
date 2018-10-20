@@ -1,0 +1,254 @@
+﻿@model WebApplication1.Models.Score
+
+@{
+    ViewBag.Title = "编辑";
+}
+
+<h2>编辑</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>评分</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EventId, "项目", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.Label(Model.Event.Name, new { @class = "control-label" })*@
+                @Html.DropDownList("EventId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EventId, "", new { @class = "text-danger" })
+                @*@Html.DisplayFor(model => model.Event.Name)*@
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimeConsume, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<select name="ConsumeHour" class="form-time" value="0">
+                    @for (int i = 0; i <= 2; i++)
+                    {
+                        if (i == @Model.TimeConsume.Value.Hours)
+                        {
+                        <option value="@i"  selected="selected">@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span>时</span>*@
+                @*<select name="ConsumeMin" class="form-time" value="0">
+                    @for (int i = 0; i <= 59; i++)
+                    {
+                        if (i == @Model.TimeConsume.Value.Minutes)
+                        {
+                            <option value="@i" selected="selected">@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>*@
+                <input type="number" name="ConsumeMin" min="0" max="59" class="form-time" value= @Model.TimeConsume.Value.Minutes>
+                <span>分</span>
+                @*<select name="ConsumeSec" class="form-time" value="0">
+                    @for (int i = 0; i <= 59; i++)
+                    {
+                        if (i == @Model.TimeConsume.Value.Seconds)
+                        {
+                            <option value="@i" selected="selected">@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>*@
+                <input type="number" name="ConsumeSec" min="0" max="59" class="form-time" value=@Model.TimeConsume.Value.Seconds>
+
+                <span>秒</span>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimePenalty, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<select name="PenaltyHour" class="form-time" value="0">
+                    @for (int i = 0; i <= 2; i++)
+                    {
+                        if (i == @Model.TimePenalty.Value.Hours)
+                        {
+                            <option value="@i" selected="selected">@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span>时</span>*@
+                @*<select name="PenaltyMin" class="form-time" value="0">
+                    @for (int i = 0; i <= 59; i++)
+                    {
+                        if (i == @Model.TimePenalty.Value.Minutes)
+                        {
+                            <option value="@i" selected="selected">@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>*@
+                <input type="number" name="PenaltyMin" min="0" max="120" class="form-time" value=@Model.TimePenalty.Value.Minutes>
+                <span>分</span>
+                @*<select name="PenaltySec" class="form-time" value="0">
+                    @for (int i = 0; i <= 59; i++)
+                    {
+                        if (i == @Model.TimePenalty.Value.Seconds)
+                        {
+                            <option value="@i" selected="selected">@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>*@
+                <input type="number" name="PenaltySec" min="0" max="59" class="form-time" value=@Model.TimePenalty.Value.Seconds>
+                <span>秒</span>
+
+            </div>
+        </div>
+        @if (ViewBag.IsTs)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Competitor.Company, "公司", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Company", null, htmlAttributes: new { @class = "form-control", @id = "Company", onchange = "GetCompetitor()" })
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+
+            @if (ViewBag.IsFin)
+            {
+                @Html.LabelFor(model => model.CompetitorId, "选手", htmlAttributes: new { @class = "control-label col-md-2 hidden" })
+                <div class="col-md-10">
+                    <select id="CompetitorId" name="CompetitorId" class="form-control hidden">
+                        <option value="">请选择...</option>
+                    </select>
+                </div>
+            }
+            else
+            {
+                @Html.LabelFor(model => model.CompetitorId, "选手", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select id="CompetitorId" name="CompetitorId" class="form-control">
+                        <option value="">请选择...</option>
+                    </select>
+
+                    @*@Html.DropDownList("CompetitorId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CompetitorId, "", new { @class = "text-danger" })*@
+                </div>
+            }
+
+
+        </div>
+
+
+
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+        <script type="text/javascript">
+                           function GetCompetitor() {
+                               $("#CompetitorId").empty(); //清空SELECT控件
+                               $.ajax({
+                                    url: '/Competitors/GetCompetorByCompanyId/' + $("#Company") .val(),
+                                    type: "get",
+                                    async:false,
+                                    datatype: "json",
+                                    success: function (data) {
+                                        if (data.length==0) {
+                                            $("<option></option>")
+                                            .val("0")
+                                            .text("请选择...")
+                                            .appendTo($("#CompetitorId"));
+                                        }
+                                        $.each(data, function (i, item) {
+                                            $("<option></option>")
+                                            .val(item["Id"])
+                                            .text(item["Name"])
+                                            .appendTo($("#CompetitorId"));
+                                        });
+
+                                    }
+                               });
+
+
+                           }
+
+        </script>
+        <script>
+           GetCompetitor();
+            //   $("#CompetitorId option[value='@Model.CompetitorId']").attr("selected", "selected");
+            //alert(  $("#CompetitorId").html());
+            $("#CompetitorId").val(@Model.CompetitorId);
+        </script>
+        <div class="form-group">
+            @Html.LabelFor(model => model.JudgeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JudgeId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.JudgeId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.JudgeTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.JudgeTime, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.JudgeTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="保存" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

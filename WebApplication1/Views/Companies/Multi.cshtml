@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Multi";
+}
+
+<h2>批量录入</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+       <div class="form-group">
+          <textarea name="List" rows="30" cols="20"> </textarea>
+           </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+    <div class="form-group">
+        
+        @ViewBag.Content
+        @ViewBag.Count
+        </div>
+
+        }
+
+<div>
+    @Html.ActionLink("返回", "Index")
+</div>

@@ -1,0 +1,29 @@
+﻿
+@model DateTime
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @{ if (Model != null)
+            {
+                <p>@Model.ToShortDateString()</p>
+            }
+            else
+            {<p>NO DATETIME</p>}
+
+        }
+        @Html.Display(Model.DayOfWeek.ToString())
+        @Html.DisplayFor(x=>x.Day)
+        @Html.EditorFor(x=>x.Day)
+        @Html.DisplayForModel()
+        @Html.DisplayName("name")
+        @Html.DisplayNameFor(x=>x.Year)
+        @Html.DisplayNameForModel()
+    </div>
+</body>
+</html>

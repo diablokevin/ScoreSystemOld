@@ -1,0 +1,221 @@
+﻿@model WebApplication1.Models.Score
+
+@{
+    ViewBag.Title = "新建评分";
+}
+
+<h2>新建</h2>
+
+    @*@if( ViewBag.Error!=null)
+    {*@
+        <p class="alert-danger"> @ViewBag.Error</p>
+    @*}*@
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>评分</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Event.Name, "项目", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Events", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EventId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimeConsume, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<select name="ConsumeHour" class="form-time" value="0">
+                    @for (int i = 0; i <= 2; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+               <span>时</span>*@
+                @*<select name="ConsumeMin" class="form-time" value="0">
+                    @for (int i = 0; i <= 59; i++)
+                    {
+                        <option value=@i>@i</option>
+                    }
+                </select>*@
+                <input type="number" name="ConsumeMin" id="ConsumeMin" min="0" max="59" class="form-time">
+                
+                <span>分</span>
+                @*<select name="ConsumeSec" class="form-time" value="0">
+                    @for (int i = 0; i <= 59; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>*@
+                <input type="number" name="ConsumeSec" id="ConsumeSec" min="0" max="59" class="form-time">
+                <span>秒</span>
+
+            </div>
+        </div>
+        @if (ViewBag.IsTs)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimePenalty, htmlAttributes: new { @class = "control-label col-md-2 hidden" })
+                <div class="col-md-10">
+                  
+                    <input type="number" name="PenaltyMin" id="PenaltyMin" min="0" max="120" class="form-time hidden" value="0">
+                                  
+                    <input type="number" name="PenaltySec" id="PenaltySec" min="0" max="59" class="form-time hidden" value="0">
+                  
+
+                </div>
+            </div>
+        }
+        else
+        {
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TimePenalty, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*<select name="PenaltyHour" class="form-time" value="0">
+                            @for (int i = 0; i <= 2; i++)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+                        <span>时</span>*@
+                    @*<select name="PenaltyMin" class="form-time" value="0">
+                            @for (int i = 0; i <= 59; i++)
+                            {
+                                <option value=@i>@i</option>
+                            }
+                        </select>*@
+                    <input type="number" name="PenaltyMin" id="PenaltyMin" min="0" max="120" class="form-time" value="0">
+
+                    <span>分</span>
+                    @*<select name="PenaltySec" class="form-time" value="0">
+                            @for (int i = 0; i <= 59; i++)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>*@
+                    <input type="number" name="PenaltySec" id="PenaltySec" min="0" max="59" class="form-time" value="0">
+                    <span>秒</span>
+
+                </div>
+            </div>
+        }
+
+
+        @if (ViewBag.IsTs) {
+        <div class="form-group">
+            @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.Competitor.Company, "公司", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Company", null, htmlAttributes: new { @class = "form-control" , @id= "Company", onchange = "GetCompetitor()" })
+          
+            </div>
+        </div>
+
+
+            <div class="form-group">
+               
+                    @if (ViewBag.IsFin)
+                    {
+                        @Html.LabelFor(model => model.CompetitorId, "选手", htmlAttributes: new { @class = "control-label col-md-2 hidden" })
+                        <div class="col-md-10">
+                            <select id="CompetitorId" name="CompetitorId" class="form-control hidden">
+                                <option value="">请选择...</option>
+                            </select>
+                        </div>
+                    }
+                    else
+                    {
+                            @Html.LabelFor(model => model.CompetitorId, "选手", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <select id="CompetitorId" name="CompetitorId" class="form-control">
+                                    <option value="">请选择...</option>
+                                </select>
+
+                                @*@Html.DropDownList("CompetitorId", null, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CompetitorId, "", new { @class = "text-danger" })*@
+                            </div>
+                            }
+
+
+                        </div>
+
+
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+
+        <script type="text/javascript">
+                           function GetCompetitor() {
+                               $("#CompetitorId").empty(); //清空SELECT控件
+                                $.ajax({
+                                    url: '/Competitors/GetCompetorByCompanyId/' + $("#Company") .val(),
+                                    type: "get",
+                                    datatype: "json",
+                                    success: function (data) {
+                                        if (data.length==0) {
+                                            $("<option></option>")
+                                            .val("0")
+                                            .text("请选择...")
+                                            .appendTo($("#CompetitorId"));
+                                        }
+                                        $.each(data, function (i, item) {
+                                            $("<option></option>")
+                                            .val(item["Id"])
+                                            .text(item["Name"])
+                                            .appendTo($("#CompetitorId"));
+                                        });
+                                    }
+                                });
+                           }
+            function CheckEmpty(){
+             var ConsumeSec=window.document.getElementById("ConsumeSec").value;
+            var ConsumeMin=window.document.getElementById("ConsumeMin").value;
+              var PenaltyMin=window.document.getElementById("PenaltyMin").value;
+            var PenaltySec=window.document.getElementById("PenaltySec").value;
+            if(ConsumeSec==""||ConsumeMin==""||PenaltyMin==""||PenaltySec=="")
+            {
+            alert("时间不能为空");
+            return false;
+            }
+            else
+            {
+            return confirm('确认提交吗');
+            }
+
+            }
+
+        </script>
+
+
+
+        <script>
+                GetCompetitor();
+
+        </script>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="提交" class="btn btn-default" onclick = "return CheckEmpty()" />
+                </div>
+            </div>
+        </div>
+}
+
+<div>
+    @*@Html.ActionLink("返回目录", "Index")*@
+    @Html.ActionLink("返回目录", "Index", new { eventID = ViewBag.EventId })
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,56 @@
+﻿@model WebApplication1.Models.Score
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Score</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeConsume)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeConsume)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimePenalty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimePenalty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Event.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Event.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Competitor.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Competitor.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
